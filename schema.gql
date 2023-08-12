@@ -1,0 +1,100 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  """Example field (placeholder)"""
+  id: Int!
+
+  """Example field (placeholder)"""
+  title: Int!
+  author: Author!
+}
+
+type Author {
+  """Example field (placeholder)"""
+  exampleField: Int!
+  posts: [Post!]!
+}
+
+type Order {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  posts: [Post!]!
+  post(id: Int!): Post!
+  authors: [Author!]!
+  author(id: Int!): Author!
+  orders(query: QueryDTO!): [Order!]!
+  order(id: String!): Order!
+}
+
+input QueryDTO {
+  query: FilterDTO!
+}
+
+input FilterDTO {
+  select: [String!]!
+  where: [Where!]!
+  pagination: Pagination!
+}
+
+input Where {
+  field: String!
+  operation: String!
+  value: String!
+}
+
+input Pagination {
+  order: String!
+  page: Float!
+  pageSize: Float!
+  sortBy: [String!]!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+  createAuthor(createAuthorInput: CreateAuthorInput!): Author!
+  updateAuthor(updateAuthorInput: UpdateAuthorInput!): Author!
+  removeAuthor(id: Int!): Author!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
+  removeOrder(id: Int!): Order!
+}
+
+input CreatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateAuthorInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAuthorInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
