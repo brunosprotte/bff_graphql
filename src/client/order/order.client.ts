@@ -8,10 +8,6 @@ export class OrderClient {
 
     async getById(orderId: string) {
         try {
-            console.log('getOrderById - ', orderId)
-
-            console.log(api.getUri())
-
             const {data} = await api.get(`/orders/${orderId}`)
             return data
         } catch(e) {
@@ -21,7 +17,7 @@ export class OrderClient {
 
     async getOrders(query: FilterDTO) {
         const api = new TracemarketQueryBuilder()
-        // return await api.selectAllField(query.query.select)
+        // return await api.selectMultipleField(query.select)
         //     .addAllWhere(query.query.where)
         //     .withPagination(query.query.pagination)
         //     .doGet("/orders")
@@ -55,9 +51,4 @@ export class OrderClient {
             }
         }
     }
-
-
-    
-
-
 }

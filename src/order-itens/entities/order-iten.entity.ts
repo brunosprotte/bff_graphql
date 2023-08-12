@@ -1,10 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class Post {
+export class OrderIten {
   @Field(() => Int, { description: 'Example field (placeholder)' })
-  id: number;
-
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  title: number;
+  exampleField: number;
 }

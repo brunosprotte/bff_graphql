@@ -1,6 +1,6 @@
 import { IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested, IsArray,IsObject } from 'class-validator';
-import { Transform, Type } from 'class-transformer';
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+
 
 export enum ComparisonOperator {
   EQ = 'EQ',
@@ -20,7 +20,6 @@ class Where {
   @IsIn(Object.values(ComparisonOperator))
   operation: ComparisonOperator;
   
-
   @Field()
   @IsNotEmpty()
   @IsString()
@@ -37,12 +36,10 @@ class Pagination {
   @Field()
   @IsNotEmpty()
   @IsNumber()
-  @Type(()=> Number)
   page: number;
 
   @Field()
   @IsNotEmpty()
-  @Type(()=> Number)
   @IsNumber()
   pageSize: number;
 
@@ -55,28 +52,16 @@ class Pagination {
 @InputType()
 export class FilterDTO {
 
-  @Field(() => [String])
-  @IsNotEmpty()
-  @IsString({ each: true })
+  @Field(() => [String], {nullable: true})
   @IsOptional()
   select?: string[];
 
-  @Field(() => [Where])
+  @Field(() => [Where], {nullable: true})
   @ValidateNested({ each: true })
-  @IsOptional()
   where?: Where[];
 
-  @Field()
-  @Type(() => Pagination)
-  @ValidateNested({ each: true })
+  @Field(() => Pagination)
+  // @ValidateNested({ each: true })
   pagination: Pagination;
 
-}
-
-@InputType()
-export class QueryDTO {
-
-  @IsOptional()
-  @Field(() => FilterDTO)
-  query: FilterDTO;
 }

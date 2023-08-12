@@ -1,13 +1,18 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { OrdersService } from './orders.service';
-import { Order } from './entities/order.entity';
+import { Item, Order } from './entities/order.entity';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
-import { FilterDTO, QueryDTO } from '../dto/query.dto';
+import { FilterDTO } from '../dto/query.dto';
+import { OrderItensService } from '../order-itens/order-itens.service';
 
 @Resolver(() => Order)
 export class OrdersResolver {
-  constructor(private readonly ordersService: OrdersService) {}
+  
+  constructor(
+    private readonly ordersService: OrdersService,
+    private readonly orderItensService: OrderItensService
+  ) {}
 
   @Mutation(() => Order)
   createOrder(@Args('createOrderInput') createOrderInput: CreateOrderInput) {
@@ -15,8 +20,9 @@ export class OrdersResolver {
   }
 
   @Query(() => [Order], { name: 'orders' })
-  findAll(@Args('query') query: QueryDTO) {
-    return this.ordersService.findAll(query.query);
+  findAll(@Args('filter') filter: FilterDTO) {
+    console.log(filter)
+    return this.ordersService.findAll(filter);
   }
 
   @Query(() => Order, { name: 'order' })
@@ -33,4 +39,11 @@ export class OrdersResolver {
   removeOrder(@Args('id', { type: () => Int }) id: number) {
     return this.ordersService.remove(id);
   }
+
+  @ResolveField('itens', () => [Item])
+  async getOrderItens(@Parent() order: Order) {
+    const { id } = order;
+    return this.orderItensService.findAll(id)
+  }
+
 }

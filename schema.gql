@@ -2,42 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post {
-  """Example field (placeholder)"""
-  id: Int!
-
-  """Example field (placeholder)"""
-  title: Int!
-  author: Author!
-}
-
-type Author {
-  """Example field (placeholder)"""
-  exampleField: Int!
-  posts: [Post!]!
-}
-
 type Order {
+  id: String!
+  externalId: String!
+  externalOrderNumber: String!
+  orderNumber: String!
+  status: String!
+  userId: String!
+  externalUserId: String!
+  itens: [Item!]!
+}
+
+type Item {
+  id: String!
+  externalId: String!
+  images: [Image!]!
+}
+
+type Image {
+  item: String!
+  url: String!
+}
+
+type OrderIten {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
 type Query {
-  posts: [Post!]!
-  post(id: Int!): Post!
-  authors: [Author!]!
-  author(id: Int!): Author!
-  orders(query: QueryDTO!): [Order!]!
+  orders(filter: FilterDTO!): [Order!]!
   order(id: String!): Order!
-}
-
-input QueryDTO {
-  query: FilterDTO!
+  orderItens: [OrderIten!]!
+  orderIten(id: Int!): OrderIten!
 }
 
 input FilterDTO {
-  select: [String!]!
-  where: [Where!]!
+  select: [String!]
+  where: [Where!]
   pagination: Pagination!
 }
 
@@ -55,37 +56,12 @@ input Pagination {
 }
 
 type Mutation {
-  createPost(createPostInput: CreatePostInput!): Post!
-  updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
-  createAuthor(createAuthorInput: CreateAuthorInput!): Author!
-  updateAuthor(updateAuthorInput: UpdateAuthorInput!): Author!
-  removeAuthor(id: Int!): Author!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   removeOrder(id: Int!): Order!
-}
-
-input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
-input CreateAuthorInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateAuthorInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  createOrderIten(createOrderItenInput: CreateOrderItenInput!): OrderIten!
+  updateOrderIten(updateOrderItenInput: UpdateOrderItenInput!): OrderIten!
+  removeOrderIten(id: Int!): OrderIten!
 }
 
 input CreateOrderInput {
@@ -94,6 +70,17 @@ input CreateOrderInput {
 }
 
 input UpdateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateOrderItenInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderItenInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
